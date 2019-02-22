@@ -1,7 +1,7 @@
 ## install
 
 ```node
- npm install
+npm install
 ```
 
 ## dev
