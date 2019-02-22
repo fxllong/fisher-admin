@@ -1,0 +1,171 @@
+<template>
+  <el-form
+    class="login-form"
+    status-icon
+    :rules="loginRules"
+    ref="loginForm"
+    :model="loginForm"
+    label-width="0"
+  >
+    <el-form-item prop="mobile">
+      <el-input
+        size="small"
+        @keyup.enter.native="handleLogin"
+        v-model="loginForm.mobile"
+        auto-complete="off"
+        placeholder="请输入手机号码"
+      >
+        <svg-icon
+          slot="prefix"
+          icon-class="mobile"
+        ></svg-icon>
+      </el-input>
+    </el-form-item>
+    <el-form-item prop="code">
+      <el-input
+        size="small"
+        @keyup.enter.native="handleLogin"
+        v-model="loginForm.code"
+        auto-complete="off"
+        placeholder="请输入验证码"
+      >
+        <template slot="append">
+          <span
+            @click="handleSend"
+            class="msg-text"
+            :class="[{display:msgKey}]"
+          >{{msgText}}</span>
+        </template>
+        <svg-icon
+          slot="prefix"
+          icon-class="validCode"
+          style="margin-top:10px"
+        ></svg-icon>
+      </el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button
+        type="primary"
+        size="small"
+        @click.native.prevent="handleLogin"
+        class="login-submit"
+      >登录</el-button>
+    </el-form-item>
+  </el-form>
+</template>
+
+<script>
+const MSGINIT = '发送验证码'
+const MSGSCUCCESS = '${time}秒后重发'
+const MSGTIME = 60
+import { isvalidatemobile } from '@/utils/validate'
+import { mapGetters } from 'vuex'
+import { sendMobileCode } from '@/api/login'
+
+export default {
+  name: 'codelogin',
+  data() {
+    const validatePhone = (rule, value, callback) => {
+      if (isvalidatemobile(value)[0]) {
+        callback(new Error(isvalidatemobile(value)[1]))
+      } else {
+        callback()
+      }
+    }
+    const validateCode = (rule, value, callback) => {
+      if (value.length !== 4) {
+        callback(new Error('请输入4位数的验证码'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      msgText: MSGINIT,
+      msgTime: MSGTIME,
+      msgKey: false,
+      loginForm: {
+        mobile: '',
+        code: ''
+      },
+      loginRules: {
+        mobile: [{ required: true, trigger: 'blur', validator: validatePhone }],
+        code: [{ required: true, trigger: 'blur', validator: validateCode }]
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['tagWel'])
+  },
+  props: [],
+  methods: {
+    handleSend() {
+      if (this.msgKey) return
+      if (!this.loginForm.mobile) {
+        this.$message.error('请输入手机号码')
+        return
+      } else if (!/^1[34578]\d{9}$/.test(this.loginForm.mobile)) {
+        this.$message.error('手机号格式不正确')
+        return
+      } else {
+        sendMobileCode(this.loginForm.mobile).then(response => {
+          if (response.code === 0) {
+            this.$message.success('验证码发送成功')
+          } else {
+            this.$message.error(response.data)
+          }
+        })
+      }
+      this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
+      this.msgKey = true
+      const time = setInterval(() => {
+        this.msgTime--
+        this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
+        if (this.msgTime === 0) {
+          this.msgTime = MSGTIME
+          this.msgText = MSGINIT
+          this.msgKey = false
+          clearInterval(time)
+        }
+      }, 1000)
+    },
+    handleLogin() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.$store
+            .dispatch('LoginByPhone', this.loginForm)
+            .then((rep) => {
+              console.log(rep)
+
+              if (rep.access_token) {
+                this.loading = false
+                this.$router.push({
+                  path: '/'
+                })
+              } else {
+                this.$message.error(rep.data)
+              }
+            }).catch(() => {
+              this.loading = false
+            })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style>
+.msg-text {
+  display: block;
+  width: 60px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+.msg-text.display {
+  color: #ccc;
+}
+</style>
