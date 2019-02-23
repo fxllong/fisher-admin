@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const fetchLogPage = (param) => {
   return request({
-    url: '/admin/log/page',
+    url: '/syslog/log/page',
     method: 'get',
     params: param
   })

@@ -58,7 +58,7 @@ export default {
           serviceId: '',
           moduleName: '',
           actionName: null,
-          modifyTome: null,
+          modifyTime: null,
           time: null,
           requestUri: '',
           remoteAddr: '',
@@ -85,7 +85,7 @@ export default {
   },
   mounted () {
     this.getData()
-    this.sys_log_exception_select = this.permissions['/admin/log/exception:select']
+    this.sys_log_exception_select = this.permissions['/syslog/log/exception:select']
   },
   computed: {
     ...mapGetters(['permissions'])
