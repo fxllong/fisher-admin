@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <el-form
       class="d"
       autoComplete="on"
@@ -45,14 +44,6 @@
             ></svg-icon>
           </el-input>
         </el-form-item>
-
-        <div class="remFor">
-          <a
-            href="'https://blog.csdn.net/Vanadis_outlook/article/details/72823024.html'"
-            class="forget"
-          >忘记密码？</a>
-        </div>
-
         <div class="formButton">
           <el-form-item style="width:100%;">
             <el-button
@@ -109,18 +100,8 @@ export default {
         }]
       },
       loading: false,
-      pwdType: 'password',
-      note: {
-        position: 'absolute',
-        top: '0px',
-        left: '0px',
-        width: '100%',
-        height: '100%',
-        backgroundImage: 'url(' + require('../../assets/bg.png') + ')',
-        backgroundSize: '100% 100%',
-        backgroundRepeat: 'no-repeat'
-
-      }
+      pwdType: 'password'
+      
     }
   },
   methods: {

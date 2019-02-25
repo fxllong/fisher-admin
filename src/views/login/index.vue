@@ -123,20 +123,25 @@ export default {
 </script>
 
 <style>
+
+
 .login-container {
   -webkit-border-radius: 5px;
   border-radius: 15px;
   -moz-border-radius: 5px;
   background-clip: padding-box;
-  margin: 180px auto;
-  width: 350px;
+  margin: 0 auto;
+  width: 100%;
   padding: 35px 35px 15px 35px;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
   position: absolute;
+  top: 120px;
   right: 50px;
+  left: 100px;
 }
+
 label {
   width: 70px;
   text-align: left;
