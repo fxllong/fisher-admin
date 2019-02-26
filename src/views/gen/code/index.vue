@@ -30,12 +30,12 @@
 
     <el-dialog title="代码生成配置" :visible.sync="dialogShow" width="600px" :close-on-click-modal="false">
       <el-form ref="roleForm" :model="table.param" label-width="140px" label-position="right">
-        <el-form-item label="生成类型" prop="genType">
+        <!-- <el-form-item label="生成类型" prop="genType">
           <el-select style=" width: 420px;" v-model="table.param.genType" placeholder="请选择">
             <el-option v-for="item in genTypeOptions" :key="item.key" :label="item.key" :value="item.key">
             </el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="entity包名称" prop="packageName">
           <el-input v-model="table.param.packageName" placeholder="若为空，则加载默认配置"></el-input>
         </el-form-item>
@@ -76,16 +76,16 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      genTypeOptions: [
-        {
-          key: 'mybatis',
-          value: 'mybatis'
-        },
-        {
-          key: 'ibatis',
-          value: 'ibatis'
-        }
-      ],
+      // genTypeOptions: [
+      //   {
+      //     key: 'mybatis',
+      //     value: 'mybatis'
+      //   },
+      //   {
+      //     key: 'ibatis',
+      //     value: 'ibatis'
+      //   }
+      // ],
       dialogShow: false,
       dialogLoading: false,
       table: {
