@@ -9,10 +9,10 @@
       <el-table-column label="类型" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.type == 0">
-            <svg-icon icon-class="panda-menu" />&nbsp;菜单
+            <svg-icon icon-class="fisher-menu" />&nbsp;菜单
           </span>
           <span v-if="scope.row.type == 1">
-            <svg-icon icon-class="panda-button" />&nbsp;按钮
+            <svg-icon icon-class="fisher-button" />&nbsp;按钮
           </span>
         </template>
       </el-table-column>

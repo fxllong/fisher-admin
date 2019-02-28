@@ -31,7 +31,7 @@
               首页
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/fisherEr/panda">
+          <a target="_blank" href="https://github.com/fanxinglong/fisher">
             <el-dropdown-item>
               github
             </el-dropdown-item>

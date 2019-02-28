@@ -93,7 +93,7 @@ export const encryption = (params) => {
  * 设置浏览器头部标题
  */
 export const setTitle = function(title) {
-  title = title ? `${title}—— panda` : 'panda'
+  title = title ? `${title}—— fisher` : 'fisher'
   window.document.title = title
 }
 /**
