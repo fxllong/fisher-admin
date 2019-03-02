@@ -74,10 +74,14 @@
                             width="120"
                             >
                     </el-table-column>
-
                     <el-table-column
                             prop="dead"
                             label="是否终止"
+                             >
+                    </el-table-column>
+                     <el-table-column
+                            prop="messageSendTimes"
+                            label="重发次数"
                              >
                     </el-table-column>
                     <el-table-column
